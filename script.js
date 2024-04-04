@@ -1,15 +1,38 @@
-function appendValue(value) {
-    document.getElementById('display').value += value;
+let expression = '';
+
+function appendNumber(num) {
+    expression += num;
+    updateDisplay();
+}
+
+function appendOperator(operator) {
+    expression += operator;
+    updateDisplay();
+}
+
+function appendDecimal(decimal) {
+    if (!expression.includes('.')) {
+        expression += decimal;
+        updateDisplay();
+    }
 }
 
 function calculate() {
     try {
-        document.getElementById('display').value = eval(document.getElementById('display').value);
+        const result = eval(expression);
+        document.getElementById('display').value = result;
+        expression = result.toString();
     } catch (error) {
         document.getElementById('display').value = 'Error';
+        expression = '';
     }
 }
 
 function clearDisplay() {
     document.getElementById('display').value = '';
+    expression = '';
+}
+
+function updateDisplay() {
+    document.getElementById('display').value = expression;
 }
